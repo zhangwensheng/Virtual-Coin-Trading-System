@@ -1,0 +1,35 @@
+pair:
+  leg_a:
+    name: binance
+    symbol: BTC/USDT:USDT
+    timeframe: 5m
+    csv_path: data/btcusdt_5m_2026-01_2026-02.csv
+  leg_b:
+    name: binance
+    symbol: ETH/USDT:USDT
+    timeframe: 5m
+    csv_path: data/ethusdt_5m_2026-01_2026-02.csv
+
+strategy:
+  beta_window: 576
+  zscore_window: 576
+  entry_z: 2.2
+  exit_z: 0.2
+  stop_z: 4.5
+  min_correlation: 0.9
+  correlation_exit_buffer: 0.1
+  reversion_confirm: true
+  max_holding_bars: 96
+  cooldown_bars: 12
+  hedge_ratio_min: 0.5
+  hedge_ratio_max: 2.0
+
+risk:
+  initial_capital: 10000
+  leverage: 2
+  gross_exposure_fraction: 1.0
+  fee_rate: 0.0005
+  slippage_bps: 2
+
+output:
+  output_dir: outputs/binance_btc_eth_pair_5m_2026-01_2026-02

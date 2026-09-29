@@ -1,0 +1,56 @@
+exchange:
+  name: binance
+  symbol: BTC/USDT:USDT
+  timeframe: 5m
+  limit: 5000
+  since:
+  csv_path:
+
+strategy:
+  strategy_kind: majors_ltf_trend
+  higher_timeframe: 1h
+  htf_fast_ema: 36
+  htf_slow_ema: 144
+  htf_adx_period: 14
+  htf_adx_threshold: 18
+  rsi_period: 14
+  atr_period: 14
+  atr_stop_mult: 1.2
+  trail_atr_mult: 1.8
+  partial_rr: 1.2
+  partial_close_ratio: 0.5
+  swing_lookback: 8
+  min_atr_pct: 0.0005
+  max_atr_pct: 0.02
+  max_bars_in_trade: 48
+  flat_on_new_day: false
+  allow_long: true
+  allow_short: true
+  majors_fast_ema: 21
+  majors_slow_ema: 55
+  majors_volume_window: 30
+  majors_impulse_window: 24
+  majors_pullback_window: 6
+  majors_impulse_threshold: 0.01
+  majors_pullback_atr_tolerance: 0.35
+  majors_min_retrace_from_extreme: 0.002
+  majors_max_retrace_from_extreme: 0.012
+  majors_vwap_extension_cap: 0.01
+  majors_volume_ratio_threshold: 0.9
+  majors_entry_rsi_low: 48
+  majors_entry_rsi_high: 62
+  majors_exit_rsi: 45
+  majors_min_bars_from_open: 6
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.003
+  leverage: 3
+  max_notional_fraction: 0.25
+  fee_rate: 0.0005
+  slippage_bps: 2
+  max_consecutive_losses: 2
+  cooldown_bars: 12
+
+output:
+  output_dir: outputs/binance_majors_ltf_base

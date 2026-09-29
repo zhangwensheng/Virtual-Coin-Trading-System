@@ -1,0 +1,33 @@
+pair:
+  leg_a:
+    name: binance
+    symbol: BTC/USDT:USDT
+    timeframe: 5m
+  leg_b:
+    name: binance
+    symbol: ETH/USDT:USDT
+    timeframe: 5m
+
+strategy:
+  beta_window: 576
+  zscore_window: 576
+  entry_z: 2.4
+  exit_z: 0.2
+  stop_z: 5.0
+  min_correlation: 0.91
+  correlation_exit_buffer: 0.1
+  reversion_confirm: true
+  max_holding_bars: 72
+  cooldown_bars: 12
+  hedge_ratio_min: 0.5
+  hedge_ratio_max: 2.0
+
+risk:
+  initial_capital: 10000
+  leverage: 2
+  gross_exposure_fraction: 1.0
+  fee_rate: 0.0005
+  slippage_bps: 2
+
+output:
+  output_dir: outputs/pairs_base

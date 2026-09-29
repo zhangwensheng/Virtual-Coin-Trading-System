@@ -1,0 +1,52 @@
+# Python caches and local test state
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments and local dependency caches
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Secrets and local account state
+*.pem
+*.key
+*.p12
+*.pfx
+*secret*
+*credential*
+*credentials*
+binance_settings*.json
+secure_store*.json
+
+# Local reference scripts may contain real exchange credentials.
+参考/
+
+# Generated executables and packaging output
+build/
+dist/
+*.spec
+
+# Raw market data and generated run output are large and may include
+# local paths, failed download URLs, live/paper logs, or account state.
+data/
+outputs/
+
+# Keep only curated public backtest summaries under docs/.
+!docs/
+!docs/backtest-results/
+!docs/backtest-results/**
+docs/superpowers/
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

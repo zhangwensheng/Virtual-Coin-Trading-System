@@ -1,0 +1,60 @@
+exchange:
+  name: binance
+  symbol: 1000PEPE/USDT:USDT
+  timeframe: 1m
+  limit: 5000
+  since:
+  csv_path:
+
+strategy:
+  strategy_kind: smallcap_intraday_short
+  higher_timeframe: 15m
+  htf_fast_ema: 20
+  htf_slow_ema: 60
+  htf_adx_period: 14
+  htf_adx_threshold: 10
+  ltf_ema: 9
+  rsi_period: 14
+  atr_period: 14
+  atr_stop_mult: 1.0
+  trail_atr_mult: 1.4
+  partial_rr: 0.8
+  partial_close_ratio: 0.6
+  swing_lookback: 10
+  volume_sma: 30
+  min_volume_ratio: 0.0
+  min_atr_pct: 0.001
+  max_atr_pct: 0.2
+  max_bars_in_trade: 180
+  flat_on_new_day: true
+  allow_long: false
+  allow_short: true
+  intraday_fast_ema: 9
+  intraday_slow_ema: 21
+  intraday_volume_window: 30
+  intraday_notional_window: 30
+  intraday_day_return_threshold: 0.03
+  intraday_volume_spike_threshold: 1.6
+  intraday_sell_volume_ratio: 1.5
+  intraday_vwap_extension_threshold: 0.02
+  intraday_take_profit_vwap_buffer: 0.003
+  intraday_upper_wick_ratio: 0.2
+  intraday_breakdown_lookback: 4
+  intraday_peak_lookback: 90
+  intraday_drop_from_peak_threshold: 0.01
+  intraday_rsi_overbought: 70
+  intraday_rsi_take_profit: 38
+  intraday_min_bars_from_open: 10
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.003
+  leverage: 2
+  max_notional_fraction: 0.15
+  fee_rate: 0.0005
+  slippage_bps: 4
+  max_consecutive_losses: 1
+  cooldown_bars: 20
+
+output:
+  output_dir: outputs/binance_1000pepe_short_1m

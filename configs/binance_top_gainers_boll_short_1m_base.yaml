@@ -1,0 +1,54 @@
+exchange:
+  name: binance
+  symbol: SOL/USDT:USDT
+  timeframe: 1m
+  limit: 43200
+  since:
+  csv_path:
+
+strategy:
+  strategy_kind: top_gainers_boll_short_1m
+  rsi_period: 14
+  atr_period: 14
+  atr_stop_mult: 0.9
+  trail_atr_mult: 1.0
+  partial_rr: 0.6
+  partial_close_ratio: 0.5
+  min_atr_pct: 0.0004
+  max_atr_pct: 0.03
+  max_bars_in_trade: 5
+  flat_on_new_day: true
+  allow_long: false
+  allow_short: true
+  top_gainers_daily_boll_window: 20
+  top_gainers_daily_boll_std: 2.0
+  top_gainers_daily_top_n: 5
+  top_gainers_daily_min_return_pct: 0.15
+  top_gainers_intraday_boll_window: 20
+  top_gainers_intraday_boll_std: 2.0
+  top_gainers_confirm_boll_window_5m: 20
+  top_gainers_confirm_boll_std_5m: 2.0
+  top_gainers_volume_window: 20
+  top_gainers_min_volume_ratio: 3.0
+  top_gainers_band_touch_buffer: 0.001
+  top_gainers_peak_lookback: 60
+  top_gainers_breakdown_lookback: 6
+  top_gainers_distribution_lookback: 4
+  top_gainers_min_vwap_extension_pct: 0.04
+  top_gainers_min_upper_wick_ratio: 0.18
+  top_gainers_drop_from_peak_pct: 0.015
+  top_gainers_exit_rsi: 24
+  top_gainers_min_daily_score: 1
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.004
+  leverage: 5
+  max_notional_fraction: 0.18
+  fee_rate: 0.0004
+  slippage_bps: 1
+  max_consecutive_losses: 2
+  cooldown_bars: 15
+
+output:
+  output_dir: outputs/top_gainers_boll_short_1m_base

@@ -1,0 +1,46 @@
+exchange:
+  name: binance
+  symbol: SOL/USDT:USDT
+  timeframe: 1m
+  limit: 20000
+  since:
+  csv_path:
+
+strategy:
+  strategy_kind: reference_volume_reversal_1m
+  rsi_period: 14
+  atr_period: 14
+  atr_stop_mult: 0.8
+  trail_atr_mult: 1.1
+  partial_rr: 0.8
+  partial_close_ratio: 0.5
+  min_atr_pct: 0.0004
+  max_atr_pct: 0.02
+  max_bars_in_trade: 12
+  flat_on_new_day: false
+  allow_long: false
+  allow_short: true
+  reference_fast_ma: 7
+  reference_slow_ma: 20
+  reference_volume_window: 10
+  reference_breakout_lookback: 3
+  reference_min_volume_ratio: 2.2
+  reference_confirm_volume_ratio: 0.9
+  reference_min_body_pct: 0.002
+  reference_min_extension_pct: 0.0012
+  reference_min_rejection_wick: 0.12
+  reference_min_pressure_ratio: 0.58
+  reference_exit_rsi: 60
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.003
+  leverage: 6
+  max_notional_fraction: 0.2
+  fee_rate: 0.0004
+  slippage_bps: 1
+  max_consecutive_losses: 2
+  cooldown_bars: 12
+
+output:
+  output_dir: outputs/binance_reference_1m_base

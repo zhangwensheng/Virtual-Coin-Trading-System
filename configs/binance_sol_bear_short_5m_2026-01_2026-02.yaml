@@ -1,0 +1,55 @@
+exchange:
+  name: binance
+  symbol: SOL/USDT:USDT
+  timeframe: 5m
+  csv_path: data/solusdt_5m_2026-01_2026-02.csv
+
+strategy:
+  strategy_kind: majors_bear_rally_short
+  higher_timeframe: 1h
+  htf_fast_ema: 24
+  htf_slow_ema: 96
+  htf_adx_period: 14
+  htf_adx_threshold: 18
+  rsi_period: 14
+  atr_period: 14
+  atr_stop_mult: 0.8
+  trail_atr_mult: 1.1
+  partial_rr: 0.9
+  partial_close_ratio: 0.5
+  min_atr_pct: 0.0006
+  max_atr_pct: 0.025
+  max_bars_in_trade: 18
+  allow_long: false
+  allow_short: true
+  bear_fast_ema: 13
+  bear_slow_ema: 34
+  bear_volume_window: 24
+  bear_bounce_window: 12
+  bear_impulse_window: 48
+  bear_breakdown_lookback: 3
+  bear_exit_window: 8
+  bear_min_bounce_pct: 0.004
+  bear_max_bounce_pct: 0.03
+  bear_min_rejection_wick_ratio: 0.22
+  bear_min_volume_ratio: 1.1
+  bear_min_rsi_peak: 54
+  bear_entry_rsi_min: 34
+  bear_entry_rsi_max: 56
+  bear_take_profit_rsi: 30
+  bear_vwap_reclaim_buffer: 0.002
+  bear_ema_extension_threshold: 0.001
+  bear_min_bars_from_open: 6
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.012
+  leverage: 20
+  max_notional_fraction: 0.9
+  fee_rate: 0.0005
+  slippage_bps: 3
+  max_consecutive_losses: 2
+  cooldown_bars: 18
+
+output:
+  output_dir: outputs/binance_sol_bear_short_5m_2026-01_2026-02

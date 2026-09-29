@@ -1,0 +1,57 @@
+exchange:
+  name: binance
+  symbol: ADA/USDT:USDT
+  timeframe: 1h
+  csv_path: data/binance_factor_bundle/adausdt_1h_2026-03-18_factors.csv
+
+strategy:
+  strategy_kind: funding_oi_bear_short
+  higher_timeframe: 4h
+  htf_fast_ema: 12
+  htf_slow_ema: 36
+  htf_adx_period: 14
+  htf_adx_threshold: 8
+  ltf_ema: 20
+  rsi_period: 14
+  rsi_short_min: 30
+  rsi_short_max: 54
+  atr_period: 14
+  atr_stop_mult: 1.0
+  trail_atr_mult: 1.4
+  partial_rr: 1.0
+  partial_close_ratio: 0.5
+  pullback_atr_tolerance: 0.4
+  swing_lookback: 6
+  volume_sma: 20
+  min_volume_ratio: 0.8
+  min_atr_pct: 0.001
+  max_atr_pct: 0.03
+  max_bars_in_trade: 48
+  allow_long: false
+  allow_short: true
+  enhanced_funding_lookback: 3
+  enhanced_oi_lookback: 6
+  enhanced_price_lookback: 6
+  enhanced_min_funding_rate: -0.0001
+  enhanced_min_funding_change: -0.00002
+  enhanced_exit_funding_rate: -0.00008
+  enhanced_min_oi_change_pct: 0.0
+  enhanced_exit_oi_change_pct: -0.015
+  enhanced_min_price_bounce_pct: 0.0
+  enhanced_max_price_bounce_pct: 0.03
+  enhanced_entry_min_score: 1
+  enhanced_risk_step: 0.5
+  enhanced_max_risk_multiplier: 2.5
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.03
+  leverage: 20
+  max_notional_fraction: 0.9
+  fee_rate: 0.0005
+  slippage_bps: 3
+  max_consecutive_losses: 2
+  cooldown_bars: 8
+
+output:
+  output_dir: outputs/binance_ada_funding_oi_short_1h_2026-03-18

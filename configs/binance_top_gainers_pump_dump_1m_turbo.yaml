@@ -1,0 +1,69 @@
+exchange:
+  name: binance
+  symbol: SOL/USDT:USDT
+  timeframe: 1m
+  limit: 43200
+  since:
+  csv_path:
+
+strategy:
+  strategy_kind: top_gainers_pump_dump_1m
+  rsi_period: 14
+  atr_period: 14
+  atr_stop_mult: 0.75
+  trail_atr_mult: 0.9
+  partial_rr: 0.7
+  partial_close_ratio: 0.5
+  min_atr_pct: 0.005
+  max_atr_pct: 0.06
+  max_bars_in_trade: 18
+  flat_on_new_day: true
+  allow_long: true
+  allow_short: false
+  top_gainers_daily_boll_window: 20
+  top_gainers_daily_boll_std: 2.0
+  top_gainers_daily_top_n: 2
+  top_gainers_daily_min_return_pct: 0.08
+  top_gainers_daily_max_return_pct: 0.8
+  top_gainers_intraday_boll_window: 20
+  top_gainers_intraday_boll_std: 2.0
+  top_gainers_confirm_boll_window_5m: 20
+  top_gainers_confirm_boll_std_5m: 2.0
+  top_gainers_volume_window: 20
+  top_gainers_min_volume_ratio: 2.6
+  top_gainers_band_touch_buffer: 0.001
+  top_gainers_peak_lookback: 60
+  top_gainers_breakdown_lookback: 6
+  top_gainers_distribution_lookback: 4
+  top_gainers_min_vwap_extension_pct: 0.035
+  top_gainers_min_upper_wick_ratio: 0.16
+  top_gainers_drop_from_peak_pct: 0.012
+  top_gainers_exit_rsi: 24
+  top_gainers_min_daily_score: 1
+  top_gainers_momentum_breakout_lookback: 5
+  top_gainers_momentum_min_volume_ratio: 1.6
+  top_gainers_momentum_max_volume_ratio: 2.5
+  top_gainers_momentum_min_trade_ratio: 1.1
+  top_gainers_momentum_max_trade_ratio: 99
+  top_gainers_momentum_min_delta_ratio: 0.12
+  top_gainers_momentum_max_delta_ratio: 0.28
+  top_gainers_momentum_min_rsi: 58
+  top_gainers_momentum_max_rsi: 72
+  top_gainers_momentum_min_htf_volume_ratio: 1.2
+  top_gainers_momentum_max_vwap_extension_pct: 0.10
+  top_gainers_momentum_exit_delta_ratio: -0.5
+  top_gainers_momentum_min_bars_from_open: 0
+  top_gainers_momentum_max_bars_from_open: 1440
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.008
+  leverage: 10
+  max_notional_fraction: 0.22
+  fee_rate: 0.0004
+  slippage_bps: 1
+  max_consecutive_losses: 1
+  cooldown_bars: 240
+
+output:
+  output_dir: outputs/top_gainers_pump_dump_1m_turbo

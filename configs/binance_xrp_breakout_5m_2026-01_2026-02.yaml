@@ -1,0 +1,51 @@
+exchange:
+  name: binance
+  symbol: XRP/USDT:USDT
+  timeframe: 5m
+  csv_path: data/xrpusdt_5m_2026-01_2026-02.csv
+
+strategy:
+  strategy_kind: majors_breakout_squeeze
+  higher_timeframe: 1h
+  htf_fast_ema: 36
+  htf_slow_ema: 144
+  htf_adx_period: 14
+  htf_adx_threshold: 18
+  rsi_period: 14
+  atr_period: 14
+  atr_stop_mult: 1.0
+  trail_atr_mult: 1.4
+  partial_rr: 1.2
+  partial_close_ratio: 0.5
+  min_atr_pct: 0.0005
+  max_atr_pct: 0.02
+  max_bars_in_trade: 12
+  allow_long: true
+  allow_short: false
+  breakout_fast_ema: 21
+  breakout_slow_ema: 55
+  breakout_volume_window: 30
+  breakout_channel_window: 72
+  breakout_exit_window: 12
+  breakout_squeeze_window: 36
+  breakout_squeeze_lookback: 12
+  breakout_max_range_pct: 0.006
+  breakout_atr_compression_mult: 0.95
+  breakout_min_volume_ratio: 1.5
+  breakout_rsi_long_min: 54
+  breakout_rsi_long_max: 74
+  breakout_rsi_short_min: 26
+  breakout_rsi_short_max: 46
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.003
+  leverage: 3
+  max_notional_fraction: 0.25
+  fee_rate: 0.0005
+  slippage_bps: 2
+  max_consecutive_losses: 2
+  cooldown_bars: 12
+
+output:
+  output_dir: outputs/binance_xrp_breakout_5m_2026-01_2026-02

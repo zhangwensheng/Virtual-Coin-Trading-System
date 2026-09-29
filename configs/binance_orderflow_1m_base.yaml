@@ -1,0 +1,48 @@
+exchange:
+  name: binance
+  symbol: SOL/USDT:USDT
+  timeframe: 1m
+  limit: 20000
+  since:
+  csv_path:
+
+strategy:
+  strategy_kind: orderflow_imbalance_1m
+  rsi_period: 14
+  atr_period: 14
+  atr_stop_mult: 0.7
+  trail_atr_mult: 1.2
+  partial_rr: 1.2
+  partial_close_ratio: 0.4
+  min_atr_pct: 0.0004
+  max_atr_pct: 0.02
+  max_bars_in_trade: 8
+  flat_on_new_day: false
+  allow_long: false
+  allow_short: true
+  orderflow_fast_ema: 12
+  orderflow_slow_ema: 48
+  orderflow_volume_window: 60
+  orderflow_trade_window: 60
+  orderflow_delta_window: 12
+  orderflow_breakout_lookback: 20
+  orderflow_min_volume_ratio: 2.6
+  orderflow_min_trade_ratio: 1.8
+  orderflow_min_delta_ratio: 0.34
+  orderflow_min_delta_zscore: 2.0
+  orderflow_vwap_buffer: 0.0005
+  orderflow_max_extension_pct: 0.0025
+  orderflow_exit_delta_ratio: 0.015
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.003
+  leverage: 6
+  max_notional_fraction: 0.2
+  fee_rate: 0.0004
+  slippage_bps: 1
+  max_consecutive_losses: 2
+  cooldown_bars: 15
+
+output:
+  output_dir: outputs/binance_orderflow_1m_base

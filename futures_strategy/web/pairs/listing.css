@@ -1,0 +1,25 @@
+body[data-strategy="listing"] .page-heading,
+body[data-strategy="listing"] .metrics,
+body[data-strategy="listing"] #connection,
+body[data-strategy="listing"] .sidebar-bottom > p,
+body[data-strategy="listing"] #rules-button,
+body[data-strategy="listing"] .strategy-label{display:none}
+.bb-overview-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bb-overview-grid .listing-accent{border-top:2px solid #d7af70}
+.listing-watch{border-top:2px solid #a78353}
+.listing-watch .bb-steps span{color:#e0c9a7;border-color:#594936;background:#29241e}
+#page-listing .bb-dot{color:#d7af70}
+#page-listing .bb-mode{border-color:#594936;background:#29231d;color:#dec5a6}
+#page-listing .bb-mode strong{color:#e4c28e}
+.listing-mode{align-items:flex-start;flex-wrap:wrap}
+.listing-mode b{font-weight:500;color:#f0d5a5}
+.listing-setting{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-left:auto}
+.listing-setting label{font-size:10px;color:#b99f79}
+.listing-setting input{width:98px;height:34px;border:1px solid #594936;border-radius:6px;background:#17191a;color:#f1d9ae;padding:0 10px;font:12px var(--mono)}
+.listing-setting input:focus{outline:2px solid #a78353;outline-offset:2px}
+.listing-setting .button{height:34px;padding:0 12px}
+.listing-help{font-size:10px;color:#8d8170;margin:-12px 0 18px 16px}
+@media(max-width:1250px){.bb-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.bb-overview-grid{grid-template-columns:1fr}}
+@media(max-width:650px){.listing-setting{width:100%;margin-left:0}.listing-setting input{flex:1;min-width:110px}.listing-help{margin-left:0}}
+@media(max-width:940px){.nav[data-page="boll"]{font-size:0}}

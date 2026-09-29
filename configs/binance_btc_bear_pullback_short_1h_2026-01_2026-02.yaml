@@ -1,0 +1,44 @@
+exchange:
+  name: binance
+  symbol: BTC/USDT:USDT
+  timeframe: 1h
+  csv_path: data/btcusdt_1h_2026-01_2026-02.csv
+
+strategy:
+  strategy_kind: trend_pullback
+  higher_timeframe: 4h
+  htf_fast_ema: 24
+  htf_slow_ema: 96
+  htf_adx_period: 14
+  htf_adx_threshold: 16
+  ltf_ema: 20
+  rsi_period: 14
+  rsi_short_min: 30
+  rsi_short_max: 54
+  atr_period: 14
+  atr_stop_mult: 1.0
+  trail_atr_mult: 1.4
+  partial_rr: 1.0
+  partial_close_ratio: 0.5
+  pullback_atr_tolerance: 0.4
+  swing_lookback: 6
+  volume_sma: 20
+  min_volume_ratio: 0.8
+  min_atr_pct: 0.001
+  max_atr_pct: 0.03
+  max_bars_in_trade: 48
+  allow_long: false
+  allow_short: true
+
+risk:
+  initial_capital: 10000
+  risk_per_trade: 0.025
+  leverage: 20
+  max_notional_fraction: 0.9
+  fee_rate: 0.0005
+  slippage_bps: 3
+  max_consecutive_losses: 2
+  cooldown_bars: 8
+
+output:
+  output_dir: outputs/binance_btc_bear_pullback_short_1h_2026-01_2026-02

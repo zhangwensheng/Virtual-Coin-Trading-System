@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark"><title>三策略工作台 · Pair Desk</title>
+  <link rel="stylesheet" href="/app.css"><link rel="stylesheet" href="/listing.css"><script src="/app.js" defer></script><script src="/boll.js" defer></script><script src="/listing.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="Pair Desk 首页"><span class="brand-mark">∥</span><span>PAIR<span class="brand-light">DESK</span><small>双币配对 · 交易工作台</small></span></a>
+    <div class="workspace-label">工作空间 <span>01</span></div>
+    <nav aria-label="主导航">
+      <button class="nav" data-page="overview"><span>◫</span>三策略总览</button>
+      <button class="nav active" data-page="positions"><span>▦</span>配对持仓 <b id="nav-count">0</b></button>
+      <button class="nav" data-page="boll"><span>↘</span>WR 冲高做空 <b id="boll-nav-count">0</b></button>
+      <button class="nav" data-page="listing"><span>⇣</span>新币破位做空 <b id="listing-nav-count">0</b></button>
+      <button class="nav" data-page="watch"><span>◎</span>币对观察</button>
+      <button class="nav" data-page="history"><span>↗</span>平仓记录</button>
+      <button class="nav" data-page="logs"><span>≡</span>运行日志</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="strategy-label"><span class="dot"></span>均值回归策略 <span>V2</span></div>
+      <p>1h / 4h 筛选关系<br>5m 确认价差收敛</p>
+      <button id="rules-button" class="text-button">查看策略与风控 <span>↗</span></button>
+      <div class="paper-note"><strong>模拟账户</strong><small>公开行情 · 不发送真实订单</small></div>
+    </div>
+  </aside>
+  <main>
+    <header class="topbar"><div class="breadcrumb">工作空间 <span>/</span> <strong id="page-label">配对持仓</strong></div><div class="topbar-right"><span id="connection" class="connection"><i class="dot"></i>连接中</span><time id="clock">--:--:--</time><span class="avatar">P</span></div></header>
+    <div class="content">
+      <section class="page-heading"><div><div class="eyebrow">STATISTICAL ARBITRAGE <span class="paper-badge">模拟盘</span></div><h1>配对交易工作台<span class="title-dot">.</span></h1><p>看清每一组价差，管理每一次回归。</p></div><div class="heading-actions"><button id="refresh" class="button secondary">↻ 刷新</button><button id="toggle-running" class="button primary" disabled>启动新开仓</button></div></section>
+      <div id="error-banner" class="banner error" role="alert" hidden></div>
+      <div id="operation-result" class="banner" role="status" hidden></div>
+      <section class="metrics" aria-label="账户概况">
+        <article class="metric"><div class="metric-label">账户净值 <span>USDT</span></div><div class="metric-value" id="equity">—</div><div class="metric-foot">可用资金 <b id="available">—</b><span id="valuation-status"></span></div></article>
+        <article class="metric"><div class="metric-label">持仓浮动盈亏 <span>双腿合计</span></div><div class="metric-value" id="unrealized">—</div><div class="metric-foot">已平仓净收益 <b id="realized">—</b></div></article>
+        <article class="metric"><div class="metric-label">已用名义本金 <span>两腿合计</span></div><div class="metric-value" id="gross">—</div><div class="allocation-track"><span id="allocation-bar"></span></div><div class="metric-foot">名义上限 <b id="max-gross">800 U</b></div></article>
+        <article class="metric"><div class="metric-label">账户回撤 <span id="risk-label">风控监控</span></div><div class="metric-value" id="drawdown">—</div><div class="metric-foot">停机阈值 <b id="drawdown-limit">5.00%</b><span id="engine-status" class="status-pill">新开仓暂停</span></div></article>
+      </section>
+
+      <section id="page-positions" class="page-panel">
+        <div class="section-head"><div><h2>当前配对持仓 <span class="count" id="group-count">0 / 5</span></h2><p>每张卡片代表一组对冲仓位 · 平仓同时处理两条腿</p></div><button id="close-all" class="button danger" disabled>一键平仓所有</button></div>
+        <div id="groups" class="groups-grid"><div class="empty-state"><div class="empty-symbol">∥</div><h3>正在读取模拟账户</h3><p>持仓、行情与操作记录将在这里显示。</p></div></div>
+        <div class="lower-grid">
+          <section class="panel"><div class="panel-heading"><h3>账户净值轨迹</h3><span class="muted">最近 180 个监控点</span></div><div id="equity-chart" class="chart-empty">等待净值记录</div><div class="chart-footer"><span>含双腿浮盈及已记账费用</span><span id="chart-time">—</span></div></section>
+          <section class="panel market-panel"><div class="panel-heading"><h3>配对雷达</h3><button class="text-button" data-go="watch">全部观察 ↗</button></div><div id="radar"></div><div class="radar-footer" id="scan-summary">等待公开市场数据</div></section>
+        </div>
+      </section>
+
+      <section id="page-watch" class="page-panel" hidden><div class="section-head"><div><h2>币对观察</h2><p>1h 与 4h 协整筛选 · 相关性不等于一定回归</p></div><span id="scan-time" class="muted">尚未扫描</span></div><div class="panel table-scroll"><table><thead><tr><th>配对币种</th><th>当前 Z 值</th><th>上一根 Z 值</th><th>1h 相关性</th><th>协整 p 值 1h / 4h</th><th>对冲比例 β</th><th>信号状态</th></tr></thead><tbody id="candidates"></tbody></table></div><p class="footnote">通过筛选只是候选；实际开仓还受资金、报价时效、收益成本、每日次数及币种占用约束。多币对筛选存在过拟合风险，当前参数尚未经过样本外收益验证。</p></section>
+      <section id="page-history" class="page-panel" hidden><div class="section-head"><div><h2>平仓记录</h2><p>每组单独记账 · 净收益扣除开平仓费用，资金费延迟发布后会补记</p></div></div><div class="panel table-scroll"><table><thead><tr><th>币对 / 组号</th><th>平仓时间</th><th>价格盈亏</th><th>资金费</th><th>手续费</th><th>净收益</th><th>退出原因</th></tr></thead><tbody id="history"></tbody></table></div></section>
+      <section id="page-logs" class="page-panel" hidden><div class="section-head"><div><h2>运行日志</h2><p>最近 100 条事件 · 全部记录可导出，供后续复盘优化</p></div><a class="button secondary" href="/api/logs.csv" download="pair-trading-logs.csv">↓ 导出全部日志</a></div><div id="logs" class="panel logs"></div></section>
+      <section id="page-overview" class="page-panel" hidden>
+        <div class="bb-heading"><div><div class="eyebrow">THREE ENGINES · SEPARATE CAPITAL</div><h1>三策略总览<span class="title-dot">.</span></h1><p>三套独立 1,000 U 模拟账户 · 不互借额度，不合并真实资金</p></div><span class="paper-badge">仅模拟</span></div>
+        <div id="overview-error" class="banner error" role="alert" hidden></div>
+        <div id="overview-metrics" class="bb-metrics"></div>
+        <div class="bb-overview-grid"><article class="panel"><div class="eyebrow">01 / PAIRS</div><h2>配对均值回归</h2><p>1h / 4h 筛选关系，5m 确认价差收敛。<br>双腿合计名义上限 800 U。</p><button class="button secondary" data-go="positions">查看配对策略 →</button></article><article class="panel bb-accent"><div class="eyebrow">02 / WR SHORT</div><h2>冲高衰竭做空</h2><p>日线 WR 在高位，1m 放量后 WR 回落破低。<br>独立 1,000 U，同时最多 2 仓。</p><button class="button secondary" data-go="boll">查看做空策略 →</button></article><article class="panel listing-accent"><div class="eyebrow">03 / NEW LISTING</div><h2>新币破位做空</h2><p>上市 30 天内，首次收盘跌破前日低点。<br>独立 1,000 U，每笔 <span id="listing-overview-margin">100</span> U 保证金 · 10 倍。</p><button class="button secondary" data-go="listing">查看新币策略 →</button></article></div>
+        <div class="panel bb-global"><div><h3>工作台紧急退出</h3><p>暂停三策略的新开仓，再分别平掉本工作台全部模拟持仓；失败仓位会保留并报告。</p></div><button class="button danger" id="workstation-close-all" disabled>平掉三策略全部模拟持仓</button></div>
+        <div id="overview-result" class="banner" role="status" hidden></div>
+      </section>
+      <section id="page-listing" class="page-panel" hidden>
+        <div class="bb-heading"><div><div class="eyebrow">03 / NEW LISTING BREAKDOWN <span class="paper-badge">独立模拟盘</span></div><h1>新币，首次破位<span class="bb-dot">.</span></h1><p>等待前一日日 K 收阳后的首次收盘破低，控制追空深度与入场时间。</p></div><div class="heading-actions"><span id="listing-connection" class="tag">连接中</span><button id="listing-running" class="button primary" disabled>启动新币新开仓</button></div></div>
+        <div class="bb-mode listing-mode"><span><strong>USDT 永续 · 10 倍模拟</strong>　独立本金 1,000 U · 每笔最多 <b id="listing-margin-label">100</b> U 保证金（约 <b id="listing-notional-label">1,000</b> U 名义）</span><div class="listing-setting"><label for="listing-margin-input">每笔保证金</label><input id="listing-margin-input" type="number" min="1" max="1000" step="1" inputmode="decimal" aria-describedby="listing-margin-help"><button id="listing-margin-save" class="button secondary" disabled>保存</button><span class="tag warn">实盘未接入</span></div></div>
+        <p id="listing-margin-help" class="listing-help">只影响之后的新开仓；已有持仓按开仓时的保证金记录。</p>
+        <div id="listing-error" class="banner error" role="alert" hidden></div><div id="listing-result" class="banner" role="status" hidden></div>
+        <div id="listing-metrics" class="bb-metrics"></div>
+        <section class="panel bb-watch listing-watch"><div class="section-head"><div><h2>新上市永续合约观察</h2><p id="listing-scan-time">等待首次扫描</p></div><span class="tag">上市 1–30 天</span></div><div class="bb-steps"><span>01 前一日日 K 收阳</span><b>→</b><span>02 当天从最高价回撤 ≥3%</span><b>→</b><span>03 1m 首次收盘破前日低点</span><b>→</b><span>04 破位 ≤0.263% · UTC 17:02 前</span></div><div class="table-scroll"><table><thead><tr><th>币种</th><th>上市天数</th><th>前日低点</th><th>破位深度</th><th>日内回撤</th><th>当前状态</th></tr></thead><tbody id="listing-candidates"></tbody></table></div><p class="footnote">日 K 按 UTC 00:00 换日。首次破位如果不合格，当天不等待第二次信号；启动前的信号不追单。</p></section>
+        <div class="section-head"><div><h2>当前新币空单 <span class="count" id="listing-position-count">0 / 5</span></h2><p>止损 +5% · 止盈 −10% · 最长持仓 24 小时 · 每币每天最多 1 单</p></div><button id="listing-close-all" class="button danger" disabled>平本策略全部仓位</button></div><div id="listing-positions" class="groups-grid"></div>
+        <section class="panel bb-history"><div class="panel-heading"><h3>新币做空平仓记录</h3><span class="muted">含手续费、模拟滑点与已结算资金费</span></div><div class="table-scroll"><table><thead><tr><th>币种</th><th>开仓 / 平仓</th><th>数量</th><th>手续费</th><th>资金费</th><th>净盈亏</th><th>退出原因</th></tr></thead><tbody id="listing-history"></tbody></table></div></section>
+        <section class="panel bb-history"><div class="panel-heading"><h3>本策略运行日志</h3><a class="text-button" href="/api/listing/logs.csv" download="new-listing-logs.csv">导出全部日志 ↗</a></div><div id="listing-logs" class="logs"></div></section>
+        <p class="footnote">本策略来自 2026 年 1–8 月样本内筛选；回测胜率和 PF 不能保证后续表现。资金费将在交易所公布后补记；尚未模拟强平与部分成交，实时滑点也可能超过回测假设。</p>
+      </section>
+      <section id="page-boll" class="page-panel" hidden>
+        <div class="bb-heading"><div><div class="eyebrow">02 / WR EXHAUSTION SHORT <span class="paper-badge">独立模拟盘</span></div><h1>冲高，等 WR 转弱<span class="bb-dot">.</span></h1><p>不是涨得多就空。等待 WR 高位放量，再确认明显回落和破低。</p></div><div class="heading-actions"><span id="boll-connection" class="tag">连接中</span><button id="boll-running" class="button primary" disabled>启动 WR 新开仓</button></div></div>
+        <div class="bb-mode"><span><strong>USDT 永续 · 1 倍模拟</strong>　本金 1,000 U / 与配对账户完全独立</span><button class="button secondary" id="boll-live-info">实盘切换：未接入</button></div>
+        <div id="boll-error" class="banner error" role="alert" hidden></div><div id="boll-result" class="banner" role="status" hidden></div>
+        <div id="boll-metrics" class="bb-metrics"></div>
+        <section class="panel bb-watch"><div class="section-head"><div><h2>涨幅榜观察流程</h2><p id="boll-scan-time">等候首次扫描</p></div><span class="tag">24h 涨幅前 7</span></div><div class="bb-steps"><span>01 日线 WR ≥ -30</span><b>→</b><span>02 分钟 WR ≥ -10 且放量</span><b>→</b><span>03 WR 回落 30～50 点</span><b>→</b><span>04 破低K下影线 ≤ 35%</span></div><div class="table-scroll"><table><thead><tr><th>排名 / 币种</th><th>24h 涨幅</th><th>日WR / 分WR</th><th>分钟量比</th><th>当前阶段</th><th>等待或拒绝原因</th></tr></thead><tbody id="boll-candidates"></tbody></table></div><p class="footnote">日 K：UTC 00:00（北京时间 08:00）换日；每日次数和亏损：北京时间 00:00 重置。行情缺失时不交易，不使用未收盘 K。</p></section>
+        <div class="section-head"><div><h2>当前做空持仓 <span class="count" id="boll-position-count">0 / 2</span></h2><p>单笔计划风险 ≤ 3 U · 每币每日最多 3 单 · 冷却 30 分钟</p></div><button id="boll-close-all" class="button danger" disabled>平本策略全部仓位</button></div><div id="boll-positions" class="groups-grid"></div>
+        <section class="panel bb-history"><div class="panel-heading"><h3>做空平仓记录</h3><span class="muted">含费用与已结算资金费</span></div><div class="table-scroll"><table><thead><tr><th>币种</th><th>开仓 / 平仓</th><th>数量</th><th>手续费</th><th>资金费</th><th>净盈亏</th><th>退出原因</th></tr></thead><tbody id="boll-history"></tbody></table></div></section>
+        <section class="panel bb-history"><div class="panel-heading"><h3>本策略运行日志</h3><a class="text-button" href="/api/boll/logs.csv" download="boll-short-logs.csv">导出全部日志 ↗</a></div><div id="boll-logs" class="logs"></div></section>
+        <p class="footnote">首版实验规则尚未验证盈利。1 倍也可能亏损；未接入维持保证金档位，强平价不可用，当前结果不是完整交易所强平仿真。</p>
+      </section>
+      <footer class="footer"><span><i class="dot"></i>仅管理本工作台的模拟持仓 · 不发送真实订单</span><span id="last-update">尚未同步</span></footer>
+    </div>
+  </main>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><form method="dialog"><div class="dialog-icon">↘</div><h2 id="confirm-title">确认平仓</h2><p id="confirm-copy"></p><div id="confirm-detail" class="confirm-detail"></div><p class="muted">模拟成交按最新可用买卖报价计算，实际结算值可能变化。报价过期的组会保留并报告失败。</p><div class="dialog-actions"><button value="cancel" class="button secondary">取消</button><button id="confirm-submit" value="confirm" class="button danger">确认平仓</button></div></form></dialog>
+  <dialog id="rules-dialog" aria-labelledby="rules-title"><div class="dialog-heading"><h2 id="rules-title">策略与风控</h2><button id="close-rules" class="icon-button" aria-label="关闭策略说明">×</button></div><p class="muted">不同币种永续合约，一多一空。参数是研究起点，不代表已验证盈利。</p><div id="rules-content"></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="boll-confirm" aria-labelledby="boll-confirm-title"><form method="dialog"><div class="dialog-icon">↘</div><h2 id="boll-confirm-title">确认模拟操作</h2><p id="boll-confirm-text"></p><p class="muted">只处理指定策略的模拟持仓。报价过期时保留仓位，并显示失败原因。</p><div class="dialog-actions"><button value="cancel" class="button secondary">取消</button><button value="confirm" class="button danger">确认</button></div></form></dialog>
+</body>
+</html>

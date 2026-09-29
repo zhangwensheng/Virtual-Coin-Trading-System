@@ -1,0 +1,7 @@
+ccxt>=4.5.43
+numpy>=1.26
+pandas>=2.2
+PyYAML>=6.0
+requests>=2.32
+websockets>=15.0
+statsmodels>=0.14
